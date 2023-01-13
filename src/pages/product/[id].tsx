@@ -2,7 +2,6 @@ import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/legacy/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
@@ -23,20 +22,7 @@ export default function Product({ product }: ProductProps) {
 
     const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession ] = useState(false)
 
-    const { isFallback } = useRouter()
-
-    if(isFallback) {
-        return (
-            <div>
-                <div>
-                    ...loading
-                </div>
-                <div>
-
-                </div>
-            </div>
-        )
-    }
+   
 
     async function handleBuyProduct() {
         try {
@@ -84,7 +70,7 @@ export const getStaticPaths: GetStaticPaths = async ({  }) => {
         paths: [
             { params: { id: 'prod_N85J02PoKfCfPi'}}
         ],
-        fallback: true,
+        fallback: 'blocking',
     }
 }
 
